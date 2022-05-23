@@ -21,7 +21,7 @@ public class Main {
                 System.out.print("Message: ");
                 input = scanner.nextLine();
                 out.println(input);
-                System.out.println(in.readLine());
+                System.out.println(input);
             }
             socket.close();
         } catch (Exception e) {
