@@ -14,7 +14,6 @@ public class Main {
         String[] address = scanner.nextLine().split(" ");
         try {
             Socket socket = new Socket(address[0], Integer.parseInt(address[1]));
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             String input = "";
             while (!input.equalsIgnoreCase("x")) {
