@@ -1,9 +1,8 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.io.DataOutputStream;
 
 public class Client extends Thread {
     private final Socket clientSocket;
@@ -15,18 +14,21 @@ public class Client extends Thread {
     @Override
     public void run() {
         try {
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream dis = new DataInputStream(System.in);
             System.out.println("Client " + clientSocket.getInetAddress() + " connected.");
             String line = "";
-            do {
+            while ((!(line = in.readLine()).equalsIgnoreCase("x"))) {
                 if (!line.equals("")) {
                     System.out.println(clientSocket.getInetAddress() + " says: " + line);
-                    out.println("\n" + line);
+                    System.out.println("Response: ");
+                    String rsp = dis.readLine();
+                    out.writeUTF("Server says: " + rsp);
                 }
-            } while ((!(line = in.readLine()).equalsIgnoreCase("x")));
-            out.println("\nBye.");
-            in.close();
+            }
+            out.writeUTF("\nBye.");
+            dis.close();
             out.close();
             clientSocket.close();
             System.out.println("Client " + clientSocket.getInetAddress() + " disconnected.");
