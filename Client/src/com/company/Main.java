@@ -22,6 +22,8 @@ public class Main {
                 String ans = in.readUTF();
                 System.out.println(ans);
             }
+            in.close();
+            out.close();
             socket.close();
         } catch (Exception e) {
             System.out.println("Address not found.");

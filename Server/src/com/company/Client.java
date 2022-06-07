@@ -27,9 +27,10 @@ public class Client extends Thread {
                     out.writeUTF("Server says: " + rsp);
                 }
             }
-            out.writeUTF("\nBye.");
-            dis.close();
+            out.writeUTF("Bye.");
+            in.close();
             out.close();
+            dis.close();
             clientSocket.close();
             System.out.println("Client " + clientSocket.getInetAddress() + " disconnected.");
         } catch (Exception e) {
